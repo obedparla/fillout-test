@@ -5,7 +5,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 interface DropdownMenuProps {
   trigger: ReactNode;
   children: ReactNode;
-  onOpenChange?: (open: boolean) => void;
+  onOpenChange?: (_open: boolean) => void;
 }
 
 export default function DropdownMenu({

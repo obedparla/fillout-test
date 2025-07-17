@@ -34,8 +34,8 @@ export default function PageTabs() {
     })
   );
 
-  const handleContextAction = (action: string, pageId: string) => {
-    console.log('Context action:', action, 'for page:', pageId);
+  const handleContextAction = (_action: string, _pageId: string) => {
+    // TODO: Implement context action handling
   };
 
   const handleDragEnd = (event: DragEndEvent) => {

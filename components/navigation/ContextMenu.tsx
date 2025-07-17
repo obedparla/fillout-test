@@ -14,7 +14,7 @@ export default function ContextMenu({ pageId, onClose }: ContextMenuProps) {
   const handleAction = (action: string) => {
     switch (action) {
       case 'setFirst':
-        console.log('Set as first page:', pageId);
+        // TODO: Implement set as first page functionality
         break;
       case 'rename':
         const newTitle = prompt('Enter new page title:');
@@ -23,7 +23,7 @@ export default function ContextMenu({ pageId, onClose }: ContextMenuProps) {
         }
         break;
       case 'copy':
-        console.log('Copy page:', pageId);
+        // TODO: Implement copy page functionality
         break;
       case 'duplicate':
         duplicatePage(pageId);

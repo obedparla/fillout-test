@@ -10,7 +10,7 @@ import { CSS } from '@dnd-kit/utilities';
 interface PageTabProps {
   page: FormPage;
   isActive: boolean;
-  onContextAction: (action: string, pageId: string) => void;
+  onContextAction: (_action: string, _pageId: string) => void;
 }
 
 export default function PageTab({ page, isActive, onContextAction }: PageTabProps) {
