@@ -1,32 +1,32 @@
-import { FormPage, PageType } from '@/types';
+import { FormPage, PageType } from "@/types";
 
 export const initialPages: FormPage[] = [
   {
-    id: '1',
-    title: 'Info',
+    id: "1",
+    title: "Info",
     type: PageType.INFO,
-    slug: 'info',
-    position: 0
+    slug: "info",
+    position: 0,
   },
   {
-    id: '2',
-    title: 'Details',
+    id: "2",
+    title: "Details",
     type: PageType.DETAILS,
-    slug: 'details',
-    position: 1
+    slug: "details",
+    position: 1,
   },
   {
-    id: '3',
-    title: 'Other',
+    id: "3",
+    title: "Other",
     type: PageType.OTHER,
-    slug: 'other',
-    position: 2
+    slug: "other",
+    position: 2,
   },
   {
-    id: '4',
-    title: 'Ending',
+    id: "4",
+    title: "Ending",
     type: PageType.ENDING,
-    slug: 'ending',
-    position: 3
-  }
+    slug: "ending",
+    position: 3,
+  },
 ];

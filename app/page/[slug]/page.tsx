@@ -1,9 +1,7 @@
-import PageContent from '@/components/layout/PageContent';
+import PageContent from "@/components/layout/PageContent";
 
 interface PageProps {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise;
 }
 
 export default async function Page({ params }: PageProps) {

@@ -38,14 +38,14 @@ export default function ContextMenu({ pageId, onClose }: ContextMenuProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg border border-gray-200 py-1 min-w-[160px]">
+    <div className="min-w-[160px] rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
       {CONTEXT_MENU_ACTIONS.map((action) => {
         const IconComponent = action.icon;
         return (
           <button
             key={action.action}
             onClick={() => handleAction(action.action)}
-            className={`w-full flex items-center px-3 py-2 text-sm text-left hover:bg-gray-50 transition-colors`}
+            className={`flex w-full items-center px-3 py-2 text-left text-sm transition-colors hover:bg-gray-50`}
           >
             <span className="mr-2">
               <IconComponent size={14} />

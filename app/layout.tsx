@@ -20,21 +20,17 @@ export const metadata: Metadata = {
   description: "A pixel-perfect form builder interface",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="h-screen flex flex-col">
+        <div className="flex h-screen flex-col">
           <Header />
           <div className="flex flex-1 overflow-hidden">
             <Sidebar />
-            <main className="flex-1 relative">
+            <main className="relative flex-1">
               {children}
               <PageNavigation />
             </main>

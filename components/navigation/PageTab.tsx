@@ -68,7 +68,9 @@ export default function PageTab({
     <div
       ref={setNodeRef}
       style={style}
-      className={`relative flex cursor-pointer items-center ${isDragging ? "opacity-50" : ""}`}
+      className={`relative flex cursor-pointer items-center ${
+        isDragging ? "opacity-50" : ""
+      }`}
       onClick={handleClick}
       {...attributes}
       {...listeners}

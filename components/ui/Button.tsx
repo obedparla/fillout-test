@@ -2,7 +2,7 @@
 
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes {
   variant?: "default" | "outline" | "ghost" | "destructive";
   size?: "sm" | "md" | "lg";
 }
