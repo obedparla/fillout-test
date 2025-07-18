@@ -20,8 +20,8 @@ export default function InfoIcon({ className = "", size = 16 }: IconProps) {
       />
       <path
         d="M10.0003 6.125C10.2993 6.12518 10.5413 6.36795 10.5413 6.66699C10.5411 6.96589 10.2992 7.20783 10.0003 7.20801C9.70126 7.20801 9.45849 6.966 9.45831 6.66699C9.45831 6.36784 9.70115 6.125 10.0003 6.125Z"
-        fill="#F59D0E"
-        stroke="#F59D0E"
+        fill="currentColor"
+        stroke="currentColor"
         strokeWidth="0.25"
       />
     </svg>
