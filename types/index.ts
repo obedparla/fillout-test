@@ -13,13 +13,6 @@ export enum PageType {
   ENDING = "ending",
 }
 
-export interface ContextMenuAction {
-  label: string;
-  action: string;
-  icon?: string;
-  variant?: "default" | "destructive";
-}
-
 export interface IconProps {
   className?: string;
   size?: number;

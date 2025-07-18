@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { FormPage, PageType } from "@/types";
 import DropdownMenu, { DropdownMenuItem } from "@/components/ui/DropdownMenu";
-import { CONTEXT_MENU_ACTIONS } from "@/utils/constants";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {
@@ -11,6 +10,11 @@ import {
   InfoIcon,
   DetailsIcon,
   EndingIcon,
+  PinIcon,
+  EditIcon,
+  CopyIcon,
+  DuplicateIcon,
+  DeleteIcon,
 } from "@/components/icons";
 
 interface PageTabProps {
@@ -18,6 +22,19 @@ interface PageTabProps {
   isActive: boolean;
   onContextAction: (_action: string, _pageId: string) => void;
 }
+
+const CONTEXT_MENU_ACTIONS = [
+  { label: "Set as first page", action: "setFirst", icon: PinIcon },
+  { label: "Rename", action: "rename", icon: EditIcon },
+  { label: "Copy", action: "copy", icon: CopyIcon },
+  { label: "Duplicate", action: "duplicate", icon: DuplicateIcon },
+  {
+    label: "Delete",
+    action: "delete",
+    icon: DeleteIcon,
+    variant: "destructive" as const,
+  },
+];
 
 function getPageIcon(type: PageType) {
   switch (type) {

@@ -37,10 +37,10 @@ export default function DropdownMenu({
   }, [isOpen, onOpenChange]);
 
   return (
-    <div className="relative" ref={menuRef}>
+    <div ref={menuRef}>
       <div onMouseDown={() => setIsOpen(!isOpen)}>{trigger}</div>
       {isOpen && (
-        <div className="absolute bottom-full left-0 z-50 mb-1 w-48 rounded-md border border-gray-200 bg-white shadow-lg">
+        <div className="absolute bottom-full left-0 z-50 mb-2 w-48 rounded-md border border-gray-200 bg-white shadow-lg">
           {children}
         </div>
       )}
