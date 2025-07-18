@@ -54,7 +54,7 @@ export default function PageTabs() {
   };
 
   return (
-    <div className="flex items-center border-t border-gray-200 bg-gray-50 px-4 py-2">
+    <div className="flex items-center overflow-auto border-t border-gray-200 bg-gray-50 px-4 py-2">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
