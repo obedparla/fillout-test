@@ -68,62 +68,56 @@ export default function PageTab({
     <div
       ref={setNodeRef}
       style={style}
-      className={`relative flex items-center ${isDragging ? "opacity-50" : ""}`}
+      className={`relative flex cursor-pointer items-center ${isDragging ? "opacity-50" : ""}`}
+      onClick={handleClick}
+      {...attributes}
+      {...listeners}
     >
-      <button
-        onClick={handleClick}
-        className={`
-          relative flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm font-medium transition-all duration-200 h-8
-          ${
-            isActive
-              ? "bg-white text-[#1a1a1a] border-[0.5px] border-[#e1e1e1] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.02),0px_1px_3px_0px_rgba(0,0,0,0.04)]"
-              : "bg-[rgba(157,164,178,0.15)] text-[#677289] hover:bg-[rgba(157,164,178,0.25)]"
-          }
-        `}
-        {...attributes}
-        {...listeners}
+      <div
+        className={`relative flex h-8 items-center gap-1.5 rounded-lg px-2.5 py-1 text-sm font-medium transition-all duration-200 ${
+          isActive
+            ? "border-[0.5px] border-[#e1e1e1] bg-white text-[#1a1a1a] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.02),0px_1px_3px_0px_rgba(0,0,0,0.04)]"
+            : "bg-[rgba(157,164,178,0.15)] text-[#677289] hover:bg-[rgba(157,164,178,0.25)]"
+        } `}
       >
-        <span className="text-base w-5 h-5 flex items-center justify-center">
+        <span className="flex h-5 w-5 items-center justify-center text-base">
           {(() => {
             const IconComponent = getPageIcon(page.type);
             return <IconComponent size={20} />;
           })()}
         </span>
-        <span className="font-['Inter:Medium',_sans-serif] font-medium text-[14px] tracking-[-0.21px]">
+        <span className="font-['Inter:Medium',_sans-serif] text-[14px] font-medium tracking-[-0.21px]">
           {page.title}
         </span>
-      </button>
 
-      <DropdownMenu
-        trigger={
-          <button
-            className={`
-              ml-1 p-1 rounded hover:bg-gray-200 transition-colors
-              ${isActive ? "text-gray-500 hover:bg-gray-100" : "text-gray-400"}
-            `}
+        {isActive && (
+          <DropdownMenu
+            trigger={
+              <div className={"rounded text-gray-500"}>
+                <DotsIcon />
+              </div>
+            }
           >
-            <DotsIcon />
-          </button>
-        }
-      >
-        <div className="py-1">
-          {CONTEXT_MENU_ACTIONS.map((action) => {
-            const IconComponent = action.icon;
-            return (
-              <DropdownMenuItem
-                key={action.action}
-                onClick={() => handleContextAction(action.action)}
-                variant={action.variant || "default"}
-              >
-                <span className="mr-2">
-                  <IconComponent size={14} />
-                </span>
-                {action.label}
-              </DropdownMenuItem>
-            );
-          })}
-        </div>
-      </DropdownMenu>
+            <div className="py-1">
+              {CONTEXT_MENU_ACTIONS.map((action) => {
+                const IconComponent = action.icon;
+                return (
+                  <DropdownMenuItem
+                    key={action.action}
+                    onClick={() => handleContextAction(action.action)}
+                    variant={action.variant || "default"}
+                  >
+                    <span className="mr-2">
+                      <IconComponent size={14} />
+                    </span>
+                    {action.label}
+                  </DropdownMenuItem>
+                );
+              })}
+            </div>
+          </DropdownMenu>
+        )}
+      </div>
     </div>
   );
 }
