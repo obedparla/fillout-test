@@ -13,8 +13,8 @@ export default function InfoIcon({ className = "", size = 16 }: IconProps) {
     >
       <path
         d="M8.95835 9.16667H10L10 13.5417M17.7084 10C17.7084 14.2572 14.2572 17.7083 10 17.7083C5.74283 17.7083 2.29169 14.2572 2.29169 10C2.29169 5.74281 5.74283 2.29167 10 2.29167C14.2572 2.29167 17.7084 5.74281 17.7084 10Z"
-        stroke="#F59D0E"
-        strokeidth="1.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
