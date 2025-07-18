@@ -10,7 +10,6 @@ import {
   DotsIcon,
   InfoIcon,
   DetailsIcon,
-  OtherIcon,
   EndingIcon,
 } from "@/components/icons";
 
@@ -56,8 +55,20 @@ export default function PageTab({
     transition,
   };
 
-  const handleClick = () => {
+  const navigateToPage = () => {
     router.push(`/page/${page.slug}`);
+  };
+
+  const handleClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    navigateToPage();
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.stopPropagation();
+      navigateToPage();
+    }
   };
 
   const handleContextAction = (action: string) => {
@@ -70,12 +81,13 @@ export default function PageTab({
     <div
       ref={setNodeRef}
       style={style}
-      className={`relative flex h-8 cursor-pointer items-center gap-2 rounded-lg px-2.5 py-1 text-sm font-medium transition-all duration-200 focus:border-[0.5px] focus:border-[#2f72e2] focus:bg-white focus:text-[#1a1a1a] focus:shadow-[0px_0px_0px_1.5px_rgba(47,114,226,0.25),0px_1px_1px_0px_rgba(0,0,0,0.02),0px_1px_3px_0px_rgba(0,0,0,0.04)] focus:outline-none ${
+      className={`relative flex h-8 cursor-pointer items-center gap-2 rounded-lg border-[0.5px] px-2.5 py-1 text-sm font-medium transition-[border] transition-colors transition-shadow duration-200 focus:outline-none focus-visible:border-[0.5px] focus-visible:border-[#2f72e2] focus-visible:bg-white focus-visible:text-[#1a1a1a] focus-visible:shadow-[0px_0px_0px_1.5px_rgba(47,114,226,0.25),0px_1px_1px_0px_rgba(0,0,0,0.02),0px_1px_3px_0px_rgba(0,0,0,0.04)] ${
         isActive
-          ? "border-[0.5px] border-[#e1e1e1] bg-white text-[#1a1a1a] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.02),0px_1px_3px_0px_rgba(0,0,0,0.04)]"
-          : "bg-[#9DA4B226] text-[#677289] hover:bg-[#9DA4B259]"
+          ? "border-[#e1e1e1] bg-white text-[#1a1a1a] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.02),0px_1px_3px_0px_rgba(0,0,0,0.04)]"
+          : "border-[transparent] bg-[#9DA4B226] text-[#677289] hover:bg-[#9DA4B259]"
       } ${isDragging ? "opacity-50" : ""}`}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
       {...attributes}
       {...listeners}
     >

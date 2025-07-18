@@ -35,9 +35,6 @@ export default function PageTabs() {
         tolerance: 5,
       },
     }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    }),
   );
 
   const handleContextAction = (_action: string, _pageId: string) => {
