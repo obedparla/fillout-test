@@ -70,58 +70,49 @@ export default function PageTab({
     <div
       ref={setNodeRef}
       style={style}
-      className={`relative flex cursor-pointer items-center ${
-        isDragging ? "opacity-50" : ""
-      }`}
+      className={`relative flex h-8 cursor-pointer items-center gap-2 rounded-lg px-2.5 py-1 text-sm font-medium transition-all duration-200 focus:border-[0.5px] focus:border-[#2f72e2] focus:bg-white focus:text-[#1a1a1a] focus:shadow-[0px_0px_0px_1.5px_rgba(47,114,226,0.25),0px_1px_1px_0px_rgba(0,0,0,0.02),0px_1px_3px_0px_rgba(0,0,0,0.04)] focus:outline-none ${
+        isActive
+          ? "border-[0.5px] border-[#e1e1e1] bg-white text-[#1a1a1a] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.02),0px_1px_3px_0px_rgba(0,0,0,0.04)]"
+          : "bg-[#9DA4B226] text-[#677289] hover:bg-[#9DA4B259]"
+      } ${isDragging ? "opacity-50" : ""}`}
       onClick={handleClick}
       {...attributes}
       {...listeners}
     >
-      <div
-        className={`relative flex h-8 items-center gap-2 rounded-lg px-2.5 py-1 text-sm font-medium transition-all duration-200 ${
-          isActive
-            ? "border-[0.5px] border-[#e1e1e1] bg-white text-[#1a1a1a] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.02),0px_1px_3px_0px_rgba(0,0,0,0.04)]"
-            : "bg-[#9DA4B226] text-[#677289] hover:bg-[#9DA4B259]"
-        } `}
-      >
-        <span className="flex h-5 w-5 items-center justify-center text-base">
-          <IconComponent
-            size={20}
-            className={isActive ? "text-[#F59D0E]" : ""}
-          />
-        </span>
-        <span className="font-['Inter',_sans-serif] text-[14px] font-medium tracking-[-0.21px]">
-          {page.title}
-        </span>
+      <span className="flex h-5 w-5 items-center justify-center text-base">
+        <IconComponent size={20} className={isActive ? "text-[#F59D0E]" : ""} />
+      </span>
+      <span className="font-['Inter',_sans-serif] text-[14px] font-medium tracking-[-0.21px]">
+        {page.title}
+      </span>
 
-        {isActive && (
-          <DropdownMenu
-            trigger={
-              <div className={"rounded text-[#9DA4B2]"}>
-                <DotsIcon size={16} />
-              </div>
-            }
-          >
-            <div className="py-1">
-              {CONTEXT_MENU_ACTIONS.map((action) => {
-                const IconComponent = action.icon;
-                return (
-                  <DropdownMenuItem
-                    key={action.action}
-                    onClick={() => handleContextAction(action.action)}
-                    variant={action.variant || "default"}
-                  >
-                    <span className="mr-2">
-                      <IconComponent size={16} />
-                    </span>
-                    {action.label}
-                  </DropdownMenuItem>
-                );
-              })}
+      {isActive && (
+        <DropdownMenu
+          trigger={
+            <div className={"rounded text-[#9DA4B2]"}>
+              <DotsIcon size={16} />
             </div>
-          </DropdownMenu>
-        )}
-      </div>
+          }
+        >
+          <div className="py-1">
+            {CONTEXT_MENU_ACTIONS.map((action) => {
+              const IconComponent = action.icon;
+              return (
+                <DropdownMenuItem
+                  key={action.action}
+                  onClick={() => handleContextAction(action.action)}
+                  variant={action.variant || "default"}
+                >
+                  <span className="mr-2">
+                    <IconComponent size={16} />
+                  </span>
+                  {action.label}
+                </DropdownMenuItem>
+              );
+            })}
+          </div>
+        </DropdownMenu>
+      )}
     </div>
   );
 }
