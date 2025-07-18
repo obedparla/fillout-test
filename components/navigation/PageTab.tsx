@@ -1,11 +1,12 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { FormPage } from '@/types';
-import DropdownMenu, { DropdownMenuItem } from '@/components/ui/DropdownMenu';
-import { CONTEXT_MENU_ACTIONS } from '@/utils/constants';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { useRouter } from "next/navigation";
+import { FormPage, PageType } from "@/types";
+import DropdownMenu, { DropdownMenuItem } from "@/components/ui/DropdownMenu";
+import { CONTEXT_MENU_ACTIONS } from "@/utils/constants";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { DotsIcon, InfoIcon, DetailsIcon, OtherIcon, EndingIcon } from "@/components/icons";
 
 interface PageTabProps {
   page: FormPage;
@@ -13,9 +14,28 @@ interface PageTabProps {
   onContextAction: (_action: string, _pageId: string) => void;
 }
 
-export default function PageTab({ page, isActive, onContextAction }: PageTabProps) {
+function getPageIcon(type: PageType) {
+  switch (type) {
+    case PageType.INFO:
+      return InfoIcon;
+    case PageType.DETAILS:
+      return DetailsIcon;
+    case PageType.OTHER:
+      return OtherIcon;
+    case PageType.ENDING:
+      return EndingIcon;
+    default:
+      return OtherIcon;
+  }
+}
+
+export default function PageTab({
+  page,
+  isActive,
+  onContextAction,
+}: PageTabProps) {
   const router = useRouter();
-  
+
   const {
     attributes,
     listeners,
@@ -39,25 +59,33 @@ export default function PageTab({ page, isActive, onContextAction }: PageTabProp
   };
 
   return (
-    <div 
+    <div
       ref={setNodeRef}
       style={style}
-      className={`relative flex items-center ${isDragging ? 'opacity-50' : ''}`}
+      className={`relative flex items-center ${isDragging ? "opacity-50" : ""}`}
     >
       <button
         onClick={handleClick}
         className={`
-          flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
-          ${isActive 
-            ? 'bg-orange-400 text-white shadow-md' 
-            : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-sm'
+          relative flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm font-medium transition-all duration-200 h-8
+          ${
+            isActive
+              ? "bg-white text-[#1a1a1a] border-[0.5px] border-[#e1e1e1] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.02),0px_1px_3px_0px_rgba(0,0,0,0.04)]"
+              : "bg-[rgba(157,164,178,0.15)] text-[#677289] hover:bg-[rgba(157,164,178,0.25)]"
           }
         `}
         {...attributes}
         {...listeners}
       >
-        <span className="text-base">{page.icon}</span>
-        <span>{page.title}</span>
+        <span className="text-base w-5 h-5 flex items-center justify-center">
+          {(() => {
+            const IconComponent = getPageIcon(page.type);
+            return <IconComponent size={16} />;
+          })()}
+        </span>
+        <span className="font-['Inter:Medium',_sans-serif] font-medium text-[14px] tracking-[-0.21px]">
+          {page.title}
+        </span>
       </button>
 
       <DropdownMenu
@@ -65,28 +93,29 @@ export default function PageTab({ page, isActive, onContextAction }: PageTabProp
           <button
             className={`
               ml-1 p-1 rounded hover:bg-gray-200 transition-colors
-              ${isActive ? 'text-white hover:bg-orange-500' : 'text-gray-500'}
+              ${isActive ? "text-gray-500 hover:bg-gray-100" : "text-gray-400"}
             `}
           >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-              <circle cx="6" cy="2" r="1"/>
-              <circle cx="6" cy="6" r="1"/>
-              <circle cx="6" cy="10" r="1"/>
-            </svg>
+            <DotsIcon />
           </button>
         }
       >
         <div className="py-1">
-          {CONTEXT_MENU_ACTIONS.map((action) => (
-            <DropdownMenuItem
-              key={action.action}
-              onClick={() => handleContextAction(action.action)}
-              variant={action.variant}
-            >
-              <span className="mr-2">{action.icon}</span>
-              {action.label}
-            </DropdownMenuItem>
-          ))}
+          {CONTEXT_MENU_ACTIONS.map((action) => {
+            const IconComponent = action.icon;
+            return (
+              <DropdownMenuItem
+                key={action.action}
+                onClick={() => handleContextAction(action.action)}
+                variant={action.variant || 'default'}
+              >
+                <span className="mr-2">
+                  <IconComponent size={14} />
+                </span>
+                {action.label}
+              </DropdownMenuItem>
+            );
+          })}
         </div>
       </DropdownMenu>
     </div>

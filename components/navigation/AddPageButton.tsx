@@ -1,6 +1,7 @@
 'use client';
 
 import { usePageStore } from '@/store/pageStore';
+import { PageType } from '@/types';
 
 interface AddPageButtonProps {
   position: number;
@@ -14,7 +15,7 @@ export default function AddPageButton({ position, className = '' }: AddPageButto
     const newPageNumber = position + 1;
     addPage({
       title: `Page ${newPageNumber}`,
-      icon: '📄',
+      type: PageType.OTHER,
       slug: `page-${newPageNumber}-${Date.now()}`
     });
   };
