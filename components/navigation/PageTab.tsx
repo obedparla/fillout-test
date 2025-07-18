@@ -51,7 +51,9 @@ export default function PageTab({
   } = useSortable({ id: page.id });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    // Note: using Transform rather than Translate will distort the tabs when dragging
+    //https://github.com/clauderic/dnd-kit/issues/117
+    transform: CSS.Translate.toString(transform),
     transition,
   };
 
@@ -85,7 +87,7 @@ export default function PageTab({
         isActive
           ? "border-[#e1e1e1] bg-white text-[#1a1a1a] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.02),0px_1px_3px_0px_rgba(0,0,0,0.04)]"
           : "border-[transparent] bg-[#9DA4B226] text-[#677289] hover:bg-[#9DA4B259]"
-      } ${isDragging ? "opacity-50" : ""}`}
+      } ${isDragging ? "z-10 opacity-60" : ""}`}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       {...attributes}

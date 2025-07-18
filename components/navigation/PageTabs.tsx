@@ -31,7 +31,7 @@ export default function PageTabs() {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        delay: 100,
+        delay: 150,
         tolerance: 5,
       },
     }),
