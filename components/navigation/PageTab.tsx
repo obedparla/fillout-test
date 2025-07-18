@@ -6,7 +6,13 @@ import DropdownMenu, { DropdownMenuItem } from "@/components/ui/DropdownMenu";
 import { CONTEXT_MENU_ACTIONS } from "@/utils/constants";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { DotsIcon, InfoIcon, DetailsIcon, OtherIcon, EndingIcon } from "@/components/icons";
+import {
+  DotsIcon,
+  InfoIcon,
+  DetailsIcon,
+  OtherIcon,
+  EndingIcon,
+} from "@/components/icons";
 
 interface PageTabProps {
   page: FormPage;
@@ -21,11 +27,11 @@ function getPageIcon(type: PageType) {
     case PageType.DETAILS:
       return DetailsIcon;
     case PageType.OTHER:
-      return OtherIcon;
+      return DetailsIcon;
     case PageType.ENDING:
       return EndingIcon;
     default:
-      return OtherIcon;
+      return DetailsIcon;
   }
 }
 
@@ -80,7 +86,7 @@ export default function PageTab({
         <span className="text-base w-5 h-5 flex items-center justify-center">
           {(() => {
             const IconComponent = getPageIcon(page.type);
-            return <IconComponent size={16} />;
+            return <IconComponent size={20} />;
           })()}
         </span>
         <span className="font-['Inter:Medium',_sans-serif] font-medium text-[14px] tracking-[-0.21px]">
@@ -107,7 +113,7 @@ export default function PageTab({
               <DropdownMenuItem
                 key={action.action}
                 onClick={() => handleContextAction(action.action)}
-                variant={action.variant || 'default'}
+                variant={action.variant || "default"}
               >
                 <span className="mr-2">
                   <IconComponent size={14} />

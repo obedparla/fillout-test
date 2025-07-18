@@ -6,7 +6,7 @@ export default function DotsIcon({ className = "", size = 12 }: IconProps) {
     <svg
       width={size}
       height={size}
-      viewBox="0 0 12 12"
+      viewBox="0 0 16 16"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
