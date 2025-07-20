@@ -1,6 +1,7 @@
 "use client";
 
 import { usePageStore } from "@/store/pageStore";
+import { PageIcon } from "@/components/ui/PageIcon";
 
 interface PageContentProps {
   slug: string;
@@ -35,8 +36,10 @@ export default function PageContent({ slug }: PageContentProps) {
   return (
     <div className="flex flex-1 items-center justify-center bg-slate-800 text-white">
       <div className="max-w-md text-center">
-        <div className="mb-4 text-6xl">{page.icon}</div>
-        <h2 className="mb-4 text-3xl font-bold">{page.title} Page</h2>
+        <h2 className="mb-4 flex gap-2 text-3xl font-bold">
+          <PageIcon type={page.type} size={30} />
+          <span> {page.title} Page</span>
+        </h2>
         <p className="mb-6 text-gray-400">
           This is a placeholder for the {page.title.toLowerCase()} page content.
         </p>

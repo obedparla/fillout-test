@@ -17,6 +17,7 @@ import {
   DeleteIcon,
 } from "@/components/icons";
 import { Tab } from "@/components/navigation/Tab";
+import { PageIcon } from "@/components/ui/PageIcon";
 
 interface PageTabProps {
   page: FormPage;
@@ -36,21 +37,6 @@ const CONTEXT_MENU_ACTIONS = [
     variant: "destructive" as const,
   },
 ];
-
-function getPageIcon(type: PageType) {
-  switch (type) {
-    case PageType.INFO:
-      return InfoIcon;
-    case PageType.DETAILS:
-      return DetailsIcon;
-    case PageType.OTHER:
-      return DetailsIcon;
-    case PageType.ENDING:
-      return EndingIcon;
-    default:
-      return DetailsIcon;
-  }
-}
 
 export default function PageTab({
   page,
@@ -95,8 +81,6 @@ export default function PageTab({
     onContextAction(action, page.id);
   };
 
-  const IconComponent = getPageIcon(page.type);
-
   return (
     <Tab
       ref={setNodeRef}
@@ -109,7 +93,11 @@ export default function PageTab({
       {...listeners}
     >
       <span className="flex h-5 w-5 items-center justify-center text-base">
-        <IconComponent size={20} className={isActive ? "text-[#F59D0E]" : ""} />
+        <PageIcon
+          type={page.type}
+          size={20}
+          className={isActive ? "text-[#F59D0E]" : ""}
+        />
       </span>
       <span className="font-['Inter',_sans-serif] text-[14px] font-medium tracking-[-0.21px]">
         {page.title}
