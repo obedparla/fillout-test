@@ -6,10 +6,11 @@ import { initialPages } from "@/utils/mockData";
 interface PageStore {
   pages: FormPage[];
   activePage: string;
+  isLoading: boolean;
 
   // Actions
   setActivePage: (slug: string) => void;
-  addPage: (page: Omit) => void;
+  addPage: (page: Omit<FormPage, "id" | "position">) => void;
   deletePage: (id: string) => void;
   renamePage: (id: string, title: string) => void;
   duplicatePage: (id: string) => void;
@@ -21,8 +22,9 @@ interface PageStore {
 export const usePageStore = create<PageStore>()(
   persist(
     (set, get) => ({
-      pages: initialPages,
-      activePage: initialPages[0]?.slug || "info",
+      pages: [],
+      activePage: "",
+      isLoading: true,
 
       setActivePage: (slug: string) => {
         set({ activePage: slug });
@@ -32,9 +34,10 @@ export const usePageStore = create<PageStore>()(
         const { pages } = get();
         const newPage: FormPage = {
           ...pageData,
-          id: Date.now().toString(),
+          id: crypto.randomUUID(),
           position: pages.length,
         };
+
         set({ pages: [...pages, newPage] });
       },
 
@@ -99,6 +102,16 @@ export const usePageStore = create<PageStore>()(
     {
       name: "form-pages-storage",
       storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          // If no pages exist after rehydration, use initial pages
+          if (!state.pages || state.pages.length === 0) {
+            state.pages = initialPages;
+            state.activePage = initialPages[0]?.slug || "info";
+          }
+          state.isLoading = false;
+        }
+      },
     },
   ),
 );

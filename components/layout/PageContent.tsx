@@ -7,8 +7,19 @@ interface PageContentProps {
 }
 
 export default function PageContent({ slug }: PageContentProps) {
-  const { findPageBySlug } = usePageStore();
+  const { findPageBySlug, isLoading } = usePageStore();
   const page = findPageBySlug(slug);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-1 items-center justify-center bg-slate-800 text-white">
+        <div className="text-center">
+          <div className="mb-4 h-8 w-8 animate-spin rounded-full border-4 border-gray-600 border-t-white"></div>
+          <p className="text-gray-400">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!page) {
     return (

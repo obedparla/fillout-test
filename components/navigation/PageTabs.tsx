@@ -5,7 +5,6 @@ import { usePageStore } from "@/store/pageStore";
 import {
   DndContext,
   closestCenter,
-  KeyboardSensor,
   PointerSensor,
   useSensor,
   useSensors,
@@ -15,7 +14,6 @@ import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
 import {
   arrayMove,
   SortableContext,
-  sortableKeyboardCoordinates,
   horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import PageTab from "./PageTab";
@@ -23,7 +21,7 @@ import AddPageButton from "./AddPageButton";
 
 export default function PageTabs() {
   const pathname = usePathname();
-  const { pages, reorderPages } = usePageStore();
+  const { pages, reorderPages, isLoading, addPage } = usePageStore();
 
   const currentSlug = pathname.split("/").pop();
   const sortedPages = [...pages].sort((a, b) => a.position - b.position);
@@ -53,6 +51,19 @@ export default function PageTabs() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center overflow-auto border-t border-gray-200 bg-gray-50 px-4 py-2">
+        <div className="flex items-center gap-2">
+          <div className="h-8 w-20 animate-pulse rounded bg-gray-300"></div>
+          <div className="h-8 w-24 animate-pulse rounded bg-gray-300"></div>
+          <div className="h-8 w-16 animate-pulse rounded bg-gray-300"></div>
+          <div className="h-8 w-16 animate-pulse rounded bg-gray-300"></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex items-center overflow-auto border-t border-gray-200 bg-gray-50 px-4 py-2">
       <DndContext
@@ -66,7 +77,7 @@ export default function PageTabs() {
           strategy={horizontalListSortingStrategy}
         >
           <div className="flex items-center gap-2">
-            {sortedPages.map((page, index) => (
+            {sortedPages.map((page) => (
               <div key={page.id} className="flex items-center">
                 <PageTab
                   page={page}
