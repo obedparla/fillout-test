@@ -17,7 +17,9 @@ import {
   horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import PageTab from "./PageTab";
-import AddPageButton from "./AddPageButton";
+import { Tab } from "@/components/navigation/Tab";
+import PlusIcon from "@/components/icons/PlusIcon";
+import { PageType } from "@/types";
 
 export default function PageTabs() {
   const pathname = usePathname();
@@ -49,6 +51,15 @@ export default function PageTabs() {
       const reorderedPages = arrayMove(sortedPages, oldIndex, newIndex);
       reorderPages(reorderedPages);
     }
+  };
+
+  const handleAddPage = () => {
+    const newPageNumber = pages.length + 1;
+    addPage({
+      title: `Page ${newPageNumber}`,
+      type: PageType.DETAILS,
+      slug: crypto.randomUUID(),
+    });
   };
 
   if (isLoading) {
@@ -91,7 +102,14 @@ export default function PageTabs() {
       </DndContext>
 
       <div className="ml-2">
-        <AddPageButton position={sortedPages.length} />
+        <Tab onClick={handleAddPage} isActive title="Add page">
+          <span className="flex h-5 w-5 items-center justify-center text-base">
+            <PlusIcon />
+          </span>
+          <span className="font-['Inter',_sans-serif] text-[14px] font-medium tracking-[-0.21px]">
+            Add page
+          </span>
+        </Tab>
       </div>
     </div>
   );
