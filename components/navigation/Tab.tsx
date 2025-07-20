@@ -7,7 +7,7 @@ interface TabProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Tab = React.forwardRef<HTMLDivElement, TabProps>(
-  ({ isActive, isDragging, type, children, ...rest }, ref) => {
+  ({ isActive, isDragging, children, ...rest }, ref) => {
     return (
       <div
         ref={ref}

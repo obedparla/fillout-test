@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IconProps, PageType } from "@/types";
+import { IconProps } from "@/types";
 
 export default function DotsIcon({ className = "", size = 12 }: IconProps) {
   return (

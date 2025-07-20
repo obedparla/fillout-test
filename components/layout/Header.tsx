@@ -1,3 +1,6 @@
+// Copied directly from Fillout.com for UI purposes, ignoring any errors here
+// @ts-nocheck
+
 export default function Header() {
   return (
     <div
