@@ -31,6 +31,10 @@ body {
   animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.animate-slide-in {
+  animation: slideInFromRight 0.2s ease-out forwards;
+}
+
 @keyframes slideUp {
   0% {
     opacity: 0;
@@ -39,5 +43,16 @@ body {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
   }
 }

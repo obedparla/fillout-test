@@ -22,6 +22,7 @@ interface PageTabProps {
   page: FormPage;
   isActive: boolean;
   onContextAction: (_action: string, _pageId: string) => void;
+  isNewlyAdded?: boolean;
 }
 
 const CONTEXT_MENU_ACTIONS = [
@@ -35,6 +36,7 @@ export default function PageTab({
   page,
   isActive,
   onContextAction,
+  isNewlyAdded = false,
 }: PageTabProps) {
   const router = useRouter();
   const { setActivePage } = usePageStore();
@@ -83,6 +85,8 @@ export default function PageTab({
       onKeyDown={handleKeyDown}
       isActive={isActive}
       isDragging={isDragging}
+      isNewlyAdded={isNewlyAdded}
+      data-page-id={page.id}
       {...attributes}
       {...listeners}
     >
