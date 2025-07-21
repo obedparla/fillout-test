@@ -83,6 +83,8 @@ export default function PageContent({ id }: PageContentProps) {
                     clipRule="evenodd"
                   />
                 </svg>
+
+                <h1 className={"font-bold"}>Page id: {page.id}</h1>
                 <h3
                   className="font-normal"
                   style={{ color: "rgb(151, 174, 176)" }}
