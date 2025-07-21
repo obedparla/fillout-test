@@ -7,16 +7,18 @@ import { clsx } from "clsx";
 interface DropdownMenuProps {
   trigger: ReactNode;
   children: ReactNode;
-  onOpenChange?: (_open: boolean) => void;
+  open: boolean;
+  onOpenChange: (_open: boolean) => void;
 }
 
 export default function DropdownMenu({
   trigger,
   children,
+  open,
   onOpenChange,
 }: DropdownMenuProps) {
   return (
-    <DropdownMenuPrimitive.Root {...(onOpenChange && { onOpenChange })}>
+    <DropdownMenuPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <DropdownMenuPrimitive.Trigger asChild>
         <div>{trigger}</div>
       </DropdownMenuPrimitive.Trigger>

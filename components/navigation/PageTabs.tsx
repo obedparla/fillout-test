@@ -31,7 +31,9 @@ export default function PageTabs() {
     usePageStore();
   const router = useRouter();
   const [isDragging, setIsDragging] = useState(false);
-  const [newlyAddedPageId, setNewlyAddedPageId] = useState<string | null>(null);
+  const [newlyAddedPageId, setNewlyAddedPageSlug] = useState<string | null>(
+    null,
+  );
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Scroll to newly added page
@@ -84,14 +86,12 @@ export default function PageTabs() {
   const handleAddPage = (insertAtIndex?: number) => {
     const newPageNumber = pages.length + 1;
     const slug = crypto.randomUUID();
-    const newPageId = crypto.randomUUID();
 
     // Set the newly added page ID for animation
-    setNewlyAddedPageId(newPageId);
+    setNewlyAddedPageSlug(slug);
 
     addPage(
       {
-        id: newPageId,
         title: `Page ${newPageNumber}`,
         type: PageType.DETAILS,
         slug,
@@ -102,7 +102,7 @@ export default function PageTabs() {
     router.push(`/page/${slug}`);
 
     // Clear the animation state after animation completes
-    setTimeout(() => setNewlyAddedPageId(null), 400);
+    setTimeout(() => setNewlyAddedPageSlug(null), 400);
   };
 
   if (isLoading) {
@@ -142,12 +142,12 @@ export default function PageTabs() {
                     page={page}
                     isActive={activePage === page.slug}
                     onContextAction={handleContextAction}
-                    isNewlyAdded={newlyAddedPageId === page.id}
+                    isNewlyAdded={newlyAddedPageId === page.slug}
                   />
 
                   {index < pages.length - 1 &&
                     (isDragging ? (
-                      <div className={"w-[20px]"} />
+                      <div className={"w-[12px]"} />
                     ) : (
                       <div className="group relative mx-[-4px] flex h-8 w-[20px] items-center justify-center transition-all duration-200 hover:w-[56px]">
                         <div className="h-px w-[20px] border-t border-dashed border-[#C0C0C0] transition-all duration-200 group-hover:w-[56px]"></div>

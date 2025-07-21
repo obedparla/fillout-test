@@ -55,7 +55,6 @@ export default function PageContent({ slug }: PageContentProps) {
           className="fillout-field-container relative z-10 mt-0 flex w-full flex-col px-2 py-4 sm:rounded-lg sm:ring-2"
           style={{
             background: "rgb(251, 253, 252)",
-            "--tw-ring-color": "rgba(47, 93, 98, 1)",
             maxWidth: "660px",
           }}
         >

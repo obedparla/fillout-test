@@ -17,6 +17,7 @@ import Tab from "@/components/navigation/Tab";
 import { PageIcon } from "@/components/ui/PageIcon";
 import { usePageStore } from "@/store/pageStore";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+import { useState } from "react";
 
 interface PageTabProps {
   page: FormPage;
@@ -40,6 +41,7 @@ export default function PageTab({
 }: PageTabProps) {
   const router = useRouter();
   const { setActivePage } = usePageStore();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const {
     attributes,
     listeners,
@@ -77,6 +79,14 @@ export default function PageTab({
     onContextAction(action, page.id);
   };
 
+  const handleRightClick = (event: React.MouseEvent) => {
+    if (isActive) {
+      event.preventDefault();
+      event.stopPropagation();
+      setDropdownOpen(true);
+    }
+  };
+
   return (
     <Tab
       ref={setNodeRef}
@@ -87,6 +97,7 @@ export default function PageTab({
       isDragging={isDragging}
       isNewlyAdded={isNewlyAdded}
       data-page-id={page.id}
+      onContextMenu={handleRightClick}
       {...attributes}
       {...listeners}
     >
@@ -101,6 +112,8 @@ export default function PageTab({
 
       {isActive && (
         <DropdownMenu
+          open={dropdownOpen}
+          onOpenChange={setDropdownOpen}
           trigger={
             <div className={"ml-[2px] text-[#9DA4B2]"}>
               <DotsIcon size={16} />
@@ -121,7 +134,6 @@ export default function PageTab({
               <DropdownMenuItem
                 key={action.action}
                 onClick={() => handleContextAction(action.action)}
-                variant={action.variant || "default"}
               >
                 <span className="mr-[6px] text-[#9DA4B2]">
                   <IconComponent size={16} />
