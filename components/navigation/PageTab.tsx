@@ -96,7 +96,7 @@ export default function PageTab({
       isActive={isActive}
       isDragging={isDragging}
       isNewlyAdded={isNewlyAdded}
-      data-page-id={page.id}
+      data-page-id={page.slug}
       onContextMenu={handleRightClick}
       {...attributes}
       {...listeners}

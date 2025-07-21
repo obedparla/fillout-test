@@ -24,6 +24,7 @@ import {
 import PageTab from "./PageTab";
 import Tab from "@/components/navigation/Tab";
 import PlusIcon from "@/components/icons/PlusIcon";
+import AddPageModal from "@/components/modals/AddPageModal";
 import { PageType } from "@/types";
 
 export default function PageTabs() {
@@ -34,6 +35,8 @@ export default function PageTabs() {
   const [newlyAddedPageId, setNewlyAddedPageSlug] = useState<string | null>(
     null,
   );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pendingInsertIndex, setPendingInsertIndex] = useState<number | undefined>(undefined);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Scroll to newly added page
@@ -45,8 +48,6 @@ export default function PageTabs() {
       if (newPageElement) {
         newPageElement.scrollIntoView({
           behavior: "smooth",
-          block: "nearest",
-          inline: "end",
         });
       }
     }
@@ -62,7 +63,7 @@ export default function PageTabs() {
   );
 
   const handleContextAction = (_action: string, _pageId: string) => {
-    // TODO: Implement context action handling
+    // empty, no logic added for context
   };
 
   const handleDragStart = (_event: DragStartEvent) => {
@@ -84,7 +85,11 @@ export default function PageTabs() {
   };
 
   const handleAddPage = (insertAtIndex?: number) => {
-    const newPageNumber = pages.length + 1;
+    setPendingInsertIndex(insertAtIndex);
+    setIsModalOpen(true);
+  };
+
+  const handleModalSave = (title: string, pageType: PageType) => {
     const slug = crypto.randomUUID();
 
     // Set the newly added page ID for animation
@@ -92,17 +97,20 @@ export default function PageTabs() {
 
     addPage(
       {
-        title: `Page ${newPageNumber}`,
-        type: PageType.DETAILS,
+        title,
+        type: pageType,
         slug,
       },
-      insertAtIndex,
+      pendingInsertIndex,
     );
 
     router.push(`/page/${slug}`);
 
     // Clear the animation state after animation completes
     setTimeout(() => setNewlyAddedPageSlug(null), 400);
+    
+    // Reset pending insert index
+    setPendingInsertIndex(undefined);
   };
 
   if (isLoading) {
@@ -119,8 +127,17 @@ export default function PageTabs() {
   }
 
   return (
-    <div className="flex items-center border-t border-gray-200 bg-gray-50 px-4 py-2">
-      <div ref={scrollContainerRef} className="flex items-center overflow-auto">
+    <>
+      <AddPageModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleModalSave}
+      />
+      <div className="flex items-center border-t border-gray-200 bg-gray-50 px-4 py-2">
+      <div
+        ref={scrollContainerRef}
+        className="hide-scrollbar flex items-center overflow-auto"
+      >
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -149,15 +166,14 @@ export default function PageTabs() {
                     (isDragging ? (
                       <div className={"w-[12px]"} />
                     ) : (
-                      <div className="group relative mx-[-4px] flex h-8 w-[20px] items-center justify-center transition-all duration-200 hover:w-[56px]">
-                        <div className="h-px w-[20px] border-t border-dashed border-[#C0C0C0] transition-all duration-200 group-hover:w-[56px]"></div>
+                      <div className="group relative mx-[-4px] flex h-8 w-[20px] items-center justify-center transition-all duration-200 hover:w-[56px] focus-within:w-[56px]">
+                        <div className="h-px w-[20px] border-t border-dashed border-[#C0C0C0] transition-all duration-200 group-hover:w-[56px] group-focus-within:w-[56px]"></div>
                         <button
                           onClick={() => {
                             handleAddPage(index + 1);
                           }}
-                          className="shadow-tab-active hover:shadow-tab-focus absolute flex h-5 w-5 cursor-pointer items-center justify-center rounded-full border-[0.5px] border-[#E1E1E1] bg-white text-black opacity-0 transition-all duration-200 group-hover:opacity-100 hover:opacity-100"
+                          className="shadow-tab-active hover:shadow-tab-focus focus:shadow-tab-focus absolute flex h-5 w-5 cursor-pointer items-center justify-center rounded-full border-[0.5px] border-[#E1E1E1] bg-white text-black opacity-0 transition-all duration-200 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 focus:outline-0"
                           title="Add page"
-                          tabIndex={-1}
                         >
                           <PlusIcon size={12} />
                         </button>
@@ -178,5 +194,6 @@ export default function PageTabs() {
         </Tab>
       </div>
     </div>
+    </>
   );
 }
