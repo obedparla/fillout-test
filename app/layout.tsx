@@ -1,23 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
 import PageTabs from "@/components/navigation/PageTabs";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const blMelody = localFont({
+  src: "./fonts/BLMelody-Medium.woff2",
+  variable: "--font-bl-melody",
 });
 
 export const metadata: Metadata = {
-  title: "Form Builder MVP",
-  description: "A pixel-perfect form builder interface",
+  title: "My form | Fillout",
+  description:
+    "Create and edit forms, surveys, and quizzes your audience will answer",
 };
 
 export default function RootLayout({
@@ -27,9 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${inter.className} ${blMelody.variable} antialiased`}>
         <div className="flex h-screen flex-col">
           <Header />
           <div className="flex flex-1 overflow-hidden">
