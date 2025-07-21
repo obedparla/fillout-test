@@ -2,6 +2,7 @@
 
 import { ReactNode } from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+import { clsx } from "clsx";
 
 interface DropdownMenuProps {
   trigger: ReactNode;
@@ -51,7 +52,10 @@ export function DropdownMenuItem({
 
   return (
     <DropdownMenuPrimitive.Item
-      className={`focus:bg-accent focus:text-accent-foreground flex cursor-pointer items-center px-3 py-[7px] text-sm font-medium transition-colors outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 ${variants[variant]}`}
+      className={clsx(
+        "focus:bg-accent focus:text-accent-foreground flex cursor-pointer items-center px-3 py-[7px] text-sm font-medium transition-colors outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        variants[variant],
+      )}
       onClick={onClick}
     >
       {children}

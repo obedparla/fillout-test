@@ -38,7 +38,7 @@ export default function PageTabs() {
   useEffect(() => {
     if (newlyAddedPageId && scrollContainerRef.current) {
       const newPageElement = scrollContainerRef.current.querySelector(
-        `[data-page-id="${newlyAddedPageId}"]`
+        `[data-page-id="${newlyAddedPageId}"]`,
       );
       if (newPageElement) {
         newPageElement.scrollIntoView({
@@ -120,7 +120,7 @@ export default function PageTabs() {
 
   return (
     <div className="flex items-center border-t border-gray-200 bg-gray-50 px-4 py-2">
-      <div className="flex items-center overflow-auto" ref={scrollContainerRef}>
+      <div ref={scrollContainerRef} className="flex items-center overflow-auto">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -149,7 +149,7 @@ export default function PageTabs() {
                     (isDragging ? (
                       <div className={"w-[20px]"} />
                     ) : (
-                      <div className="group relative flex h-8 w-[20px] items-center justify-center transition-all duration-200 hover:w-[56px]">
+                      <div className="group relative mx-[-4px] flex h-8 w-[20px] items-center justify-center transition-all duration-200 hover:w-[56px]">
                         <div className="h-px w-[20px] border-t border-dashed border-[#C0C0C0] transition-all duration-200 group-hover:w-[56px]"></div>
                         <button
                           onClick={() => {
