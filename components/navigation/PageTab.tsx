@@ -16,6 +16,7 @@ import {
 import Tab from "@/components/navigation/Tab";
 import { PageIcon } from "@/components/ui/PageIcon";
 import { usePageStore } from "@/store/pageStore";
+import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 
 interface PageTabProps {
   page: FormPage;
@@ -102,13 +103,13 @@ export default function PageTab({
             </div>
           }
         >
-          <div
+          <DropdownMenuPrimitive.Label
             className={
               "font-bl-melody mb-[7px] rounded-t-[8px] border-b border-b-[#E1E1E1] bg-[#FAFBFC] px-3 py-2 font-['BLMelody']"
             }
           >
             Settings
-          </div>
+          </DropdownMenuPrimitive.Label>
 
           {CONTEXT_MENU_ACTIONS.map((action) => {
             const IconComponent = action.icon;
@@ -126,7 +127,9 @@ export default function PageTab({
             );
           })}
 
-          <div className={"my-[6px] h-[0.5px] bg-[#E1E1E1]"}></div>
+          <DropdownMenuPrimitive.Separator
+            className={"my-[6px] h-[0.5px] bg-[#E1E1E1]"}
+          />
 
           <DropdownMenuItem
             key={"Delete"}
