@@ -36,7 +36,9 @@ export default function PageTabs() {
     null,
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [pendingInsertIndex, setPendingInsertIndex] = useState<number | undefined>(undefined);
+  const [pendingInsertIndex, setPendingInsertIndex] = useState<
+    number | undefined
+  >(undefined);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Scroll to newly added page
@@ -108,7 +110,7 @@ export default function PageTabs() {
 
     // Clear the animation state after animation completes
     setTimeout(() => setNewlyAddedPageSlug(null), 400);
-    
+
     // Reset pending insert index
     setPendingInsertIndex(undefined);
   };
@@ -134,66 +136,75 @@ export default function PageTabs() {
         onSave={handleModalSave}
       />
       <div className="flex items-center border-t border-gray-200 bg-gray-50 px-4 py-2">
-      <div
-        ref={scrollContainerRef}
-        className="hide-scrollbar flex items-center overflow-auto"
-      >
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-          modifiers={[
-            restrictToHorizontalAxis,
-            restrictToFirstScrollableAncestor,
-          ]}
+        <div
+          ref={scrollContainerRef}
+          className="hide-scrollbar flex items-center overflow-auto"
         >
-          <SortableContext
-            items={pages.map((p) => p.id)}
-            strategy={horizontalListSortingStrategy}
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            modifiers={[
+              restrictToHorizontalAxis,
+              restrictToFirstScrollableAncestor,
+            ]}
           >
-            <div className="flex items-center">
-              {pages.map((page, index) => (
-                <React.Fragment key={page.id}>
-                  <PageTab
-                    page={page}
-                    isActive={activePage === page.slug}
-                    onContextAction={handleContextAction}
-                    isNewlyAdded={newlyAddedPageId === page.slug}
-                  />
+            <SortableContext
+              items={pages.map((p) => p.id)}
+              strategy={horizontalListSortingStrategy}
+            >
+              <div
+                className="flex items-center"
+                data-testid="page-tabs-container"
+              >
+                {pages.map((page, index) => (
+                  <React.Fragment key={page.id}>
+                    <PageTab
+                      page={page}
+                      isActive={activePage === page.slug}
+                      onContextAction={handleContextAction}
+                      isNewlyAdded={newlyAddedPageId === page.slug}
+                      data-testid={`page-tab-${page.slug}`}
+                    />
 
-                  {index < pages.length - 1 &&
-                    (isDragging ? (
-                      <div className={"w-[12px]"} />
-                    ) : (
-                      <div className="group relative mx-[-4px] flex h-8 w-[20px] items-center justify-center transition-all duration-200 hover:w-[56px] focus-within:w-[56px]">
-                        <div className="h-px w-[20px] border-t border-dashed border-[#C0C0C0] transition-all duration-200 group-hover:w-[56px] group-focus-within:w-[56px]"></div>
-                        <button
-                          onClick={() => {
-                            handleAddPage(index + 1);
-                          }}
-                          className="shadow-tab-active hover:shadow-tab-focus focus:shadow-tab-focus absolute flex h-5 w-5 cursor-pointer items-center justify-center rounded-full border-[0.5px] border-[#E1E1E1] bg-white text-black opacity-0 transition-all duration-200 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 focus:outline-0"
-                          title="Add page"
-                        >
-                          <PlusIcon size={12} />
-                        </button>
-                      </div>
-                    ))}
-                </React.Fragment>
-              ))}
-            </div>
-          </SortableContext>
-        </DndContext>
+                    {index < pages.length - 1 &&
+                      (isDragging ? (
+                        <div className={"w-[12px]"} />
+                      ) : (
+                        <div className="group relative mx-[-4px] flex h-8 w-[20px] items-center justify-center transition-all duration-200 focus-within:w-[56px] hover:w-[56px]">
+                          <div className="h-px w-[20px] border-t border-dashed border-[#C0C0C0] transition-all duration-200 group-focus-within:w-[56px] group-hover:w-[56px]"></div>
+                          <button
+                            onClick={() => {
+                              handleAddPage(index + 1);
+                            }}
+                            className="shadow-tab-active hover:shadow-tab-focus focus:shadow-tab-focus absolute flex h-5 w-5 cursor-pointer items-center justify-center rounded-full border-[0.5px] border-[#E1E1E1] bg-white text-black opacity-0 transition-all duration-200 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 focus:outline-0"
+                            title="Add page"
+                          >
+                            <PlusIcon size={12} />
+                          </button>
+                        </div>
+                      ))}
+                  </React.Fragment>
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
+        </div>
+        <div className="ml-2">
+          <Tab
+            onClick={() => handleAddPage()}
+            isActive
+            title="Add page"
+            data-testid="add-page-button"
+          >
+            <span className="flex h-5 w-5 items-center justify-center text-base">
+              <PlusIcon />
+            </span>
+            <span className="text-[14px] font-medium">Add page</span>
+          </Tab>
+        </div>
       </div>
-      <div className="ml-2">
-        <Tab onClick={() => handleAddPage()} isActive title="Add page">
-          <span className="flex h-5 w-5 items-center justify-center text-base">
-            <PlusIcon />
-          </span>
-          <span className="text-[14px] font-medium">Add page</span>
-        </Tab>
-      </div>
-    </div>
     </>
   );
 }

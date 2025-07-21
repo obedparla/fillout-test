@@ -61,10 +61,13 @@ export default function AddPageModal({
     <Dialog.Root open={isOpen} onOpenChange={handleClose}>
       <Dialog.Portal>
         <Dialog.Overlay className="animate-in fade-in-0 fixed inset-0 z-50 bg-black/50" />
-        <Dialog.Content className="animate-in fade-in-0 zoom-in-95 fixed top-[50%] left-[50%] z-[100] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border border-gray-200 bg-white p-6 shadow-lg">
+        <Dialog.Content
+          className="animate-in fade-in-0 zoom-in-95 fixed top-[50%] left-[50%] z-[100] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border border-gray-200 bg-white p-6 shadow-lg"
+          data-testid="add-page-modal"
+        >
           <div className="flex flex-col space-y-1.5 text-center sm:text-left">
             <Dialog.Title className="text-lg leading-none font-semibold tracking-tight text-gray-900">
-              Add new form
+              Add new page
             </Dialog.Title>
             <Dialog.Description className="text-sm text-gray-500">
               Choose a name and page type.
@@ -87,6 +90,7 @@ export default function AddPageModal({
                 onChange={(e) => setTitle(e.target.value)}
                 className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-black placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none"
                 autoFocus
+                data-testid="page-name-input"
               />
             </div>
 
@@ -112,6 +116,7 @@ export default function AddPageModal({
                         setSelectedType(e.target.value as PageType)
                       }
                       className="mt-0.5 h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500"
+                      data-testid={`page-type-${option.value}`}
                     />
                     <div className="flex-1">
                       <div className="text-sm font-medium text-gray-900">
@@ -139,6 +144,7 @@ export default function AddPageModal({
                 type="submit"
                 disabled={!title.trim()}
                 className="inline-flex h-9 items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                data-testid="submit-add-page"
               >
                 Add Page
               </button>

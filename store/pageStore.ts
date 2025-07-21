@@ -11,8 +11,6 @@ interface PageStore {
   // Actions
   setActivePage: (slug: string) => void;
   addPage: (page: Omit<FormPage, "id">, insertAtIndex?: number) => void;
-  deletePage: (id: string) => void;
-  duplicatePage: (id: string) => void;
   reorderPages: (pages: FormPage[]) => void;
   findPageBySlug: (slug: string) => FormPage | undefined;
 }
@@ -47,41 +45,6 @@ export const usePageStore = create<PageStore>()(
         } else {
           set({ pages: [...pages, newPage], activePage: newPage.slug });
         }
-      },
-
-      deletePage: (id: string) => {
-        const { pages, activePage } = get();
-        const filteredPages = pages.filter((page) => page.id !== id);
-        const deletedPage = pages.find((page) => page.id === id);
-
-        // If we're deleting the active page, switch to the first page
-        if (
-          deletedPage?.slug === activePage &&
-          filteredPages.length > 0 &&
-          filteredPages[0]?.slug
-        ) {
-          set({
-            pages: filteredPages,
-            activePage: filteredPages[0].slug,
-          });
-        } else {
-          set({ pages: filteredPages });
-        }
-      },
-
-      duplicatePage: (id: string) => {
-        const { pages } = get();
-        const original = pages.find((page) => page.id === id);
-        if (!original) return;
-
-        const duplicate: FormPage = {
-          ...original,
-          id: Date.now().toString(),
-          title: `${original.title} Copy`,
-          slug: `${original.slug}-copy`,
-        };
-
-        set({ pages: [...pages, duplicate] });
       },
 
       reorderPages: (reorderedPages: FormPage[]) => {
