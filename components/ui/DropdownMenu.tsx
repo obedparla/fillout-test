@@ -20,7 +20,7 @@ export default function DropdownMenu({
   return (
     <DropdownMenuPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <DropdownMenuPrimitive.Trigger asChild>
-        <div>{trigger}</div>
+        {trigger}
       </DropdownMenuPrimitive.Trigger>
       <DropdownMenuPrimitive.Portal>
         <DropdownMenuPrimitive.Content

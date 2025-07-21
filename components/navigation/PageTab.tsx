@@ -115,7 +115,13 @@ export default function PageTab({
           open={dropdownOpen}
           onOpenChange={setDropdownOpen}
           trigger={
-            <div className={"ml-[2px] text-[#9DA4B2]"}>
+            <div
+              className={
+                "focus:shadow-tab-focus ml-[2px] rounded-sm text-[#9DA4B2] focus:outline-0"
+              }
+              aria-label={"Open context menu"}
+              tabIndex={0}
+            >
               <DotsIcon size={16} />
             </div>
           }
