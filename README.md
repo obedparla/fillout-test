@@ -8,7 +8,7 @@ The project was bootstrapped with `create-next-app`.
 
 ## Previewing the app
 
-The live demo can be found in Netlify here. I've been using Netlify for a while and it's as strong a candidate to deploy it as any other for a simple app.
+The live demo can be found in [Vercel here](https://fillout-test-eta.vercel.app/page/other). Vercel is as good a place as any to deploy a simple Next.js app.
 
 First, run the development server:
 
@@ -20,6 +20,7 @@ npm run dev
 
 - Each Form is rendered as a Next.js Page
 - When switching through the forms via the tabs, update the view via a Next.js route, this way the URL updates, has navigation history, can be shared, etc.
+- Added `Zustand` for state management, and to mimic some type of backend, I added persistence through local storage.
 - The dropdown is using `radix-ui`, it automatically handles positioning and edge cases
   - I was not able to perfectly position the dropdown to be flush against the left of the tab, since the "trigger" for the dropdown is the dots icon, which is on the right. I may have missed how to do this using Radix-ui.
 - I added the `clxs` library to simplify the Tailwind classes logic.
@@ -35,5 +36,5 @@ npm run dev
 ## Design choices
 
 - The "+ Add page" button on the right of the tabs is outside of the scrollable area from the tabs.
-  - From the Figma design it seemed like it was connected to the tabs, but if there are many forms, the button will be hidden all the right to the right, requiring to scroll.
+  - From the Figma design it seemed like it was connected to the tabs, but if there are many forms, the button will be hidden all the way to the right, requiring to scroll.
 - In order to make the app look better, I copied the header, sidebar, and form info from fillout.com and pasted it in this project. 
