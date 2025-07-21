@@ -9,7 +9,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoading && pages.length > 0) {
+    if (!isLoading && pages.length > 0 && pages[0]?.id) {
       router.push(`/page/${pages[0].id}`);
       setActivePage(pages[0].id);
     }
