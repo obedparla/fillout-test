@@ -22,7 +22,11 @@ jest.mock("../../icons/PlusIcon", () => {
 });
 
 jest.mock("../PageTab", () => {
-  return function PageTab({ page, isActive, "data-testid": dataTestId }: any) {
+  return function PageTab({
+    page,
+    isActive,
+    "data-testid": dataTestId,
+  }: unknown) {
     return (
       <div data-testid={dataTestId} className={isActive ? "active" : ""}>
         {page.title}
@@ -39,13 +43,11 @@ describe("PageTabs", () => {
   const mockPageStore = {
     pages: [
       {
-        id: "1",
         title: "Page 1",
         id: "page-1",
         type: PageType.INFO,
       },
       {
-        id: "2",
         title: "Page 2",
         id: "page-2",
         type: PageType.DETAILS,
@@ -62,7 +64,9 @@ describe("PageTabs", () => {
     (useRouter as jest.Mock).mockReturnValue(mockRouter);
     (usePageStore as unknown as jest.Mock).mockReturnValue(mockPageStore);
     // Clear test globals
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     delete (window as any).testPageName;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     delete (window as any).testPageType;
   });
 
@@ -127,7 +131,6 @@ describe("PageTabs", () => {
     // Mock addPage to simulate adding a page to the store
     const mockAddPage = jest.fn().mockImplementation((pageData) => {
       const newPage = {
-        id: "3",
         id: expect.any(String),
         ...pageData,
       };

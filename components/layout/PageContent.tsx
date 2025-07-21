@@ -1,7 +1,6 @@
 "use client";
 
 import { usePageStore } from "@/store/pageStore";
-import { PageIcon } from "@/components/ui/PageIcon";
 
 interface PageContentProps {
   id: string;

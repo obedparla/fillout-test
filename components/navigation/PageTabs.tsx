@@ -99,7 +99,6 @@ export default function PageTabs() {
       {
         title,
         type: pageType,
-        id,
       },
       pendingInsertIndex,
     );
