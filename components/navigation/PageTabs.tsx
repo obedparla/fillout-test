@@ -127,9 +127,7 @@ export default function PageTabs() {
           <span className="flex h-5 w-5 items-center justify-center text-base">
             <PlusIcon />
           </span>
-          <span className="font-['Inter',_sans-serif] text-[14px] font-medium tracking-[-0.21px]">
-            Add page
-          </span>
+          <span className="text-[14px] font-medium">Add page</span>
         </Tab>
       </div>
     </div>

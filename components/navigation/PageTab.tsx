@@ -28,12 +28,6 @@ const CONTEXT_MENU_ACTIONS = [
   { label: "Rename", action: "rename", icon: EditIcon },
   { label: "Copy", action: "copy", icon: CopyIcon },
   { label: "Duplicate", action: "duplicate", icon: DuplicateIcon },
-  {
-    label: "Delete",
-    action: "delete",
-    icon: DeleteIcon,
-    variant: "destructive" as const,
-  },
 ];
 
 export default function PageTab({
@@ -98,35 +92,52 @@ export default function PageTab({
           className={isActive ? "text-[#F59D0E]" : ""}
         />
       </span>
-      <span className="font-['Inter',_sans-serif] text-[14px] font-medium tracking-[-0.21px]">
-        {page.title}
-      </span>
+      <span className="text-[14px] font-medium">{page.title}</span>
 
       {isActive && (
         <DropdownMenu
           trigger={
-            <div className={"ml-[2px] rounded text-[#9DA4B2]"}>
+            <div className={"ml-[2px] text-[#9DA4B2]"}>
               <DotsIcon size={16} />
             </div>
           }
         >
-          <div className="py-1">
-            {CONTEXT_MENU_ACTIONS.map((action) => {
-              const IconComponent = action.icon;
-              return (
-                <DropdownMenuItem
-                  key={action.action}
-                  onClick={() => handleContextAction(action.action)}
-                  variant={action.variant || "default"}
-                >
-                  <span className="mr-2">
-                    <IconComponent size={16} />
-                  </span>
-                  {action.label}
-                </DropdownMenuItem>
-              );
-            })}
+          <div
+            className={
+              "font-bl-melody mb-[7px] rounded-t-[8px] border-b border-b-[#E1E1E1] bg-[#FAFBFC] px-3 py-2 font-['BLMelody']"
+            }
+          >
+            Settings
           </div>
+
+          {CONTEXT_MENU_ACTIONS.map((action) => {
+            const IconComponent = action.icon;
+            return (
+              <DropdownMenuItem
+                key={action.action}
+                onClick={() => handleContextAction(action.action)}
+                variant={action.variant || "default"}
+              >
+                <span className="mr-[6px] text-[#9DA4B2]">
+                  <IconComponent size={16} />
+                </span>
+                {action.label}
+              </DropdownMenuItem>
+            );
+          })}
+
+          <div className={"my-[6px] h-[0.5px] bg-[#E1E1E1]"}></div>
+
+          <DropdownMenuItem
+            key={"Delete"}
+            onClick={() => handleContextAction("delete")}
+            variant={"destructive"}
+          >
+            <span className="mr-[6px] text-[#EF494F] hover:bg-red-50 focus:bg-red-50">
+              <DeleteIcon size={16} />
+            </span>
+            Delete
+          </DropdownMenuItem>
         </DropdownMenu>
       )}
     </Tab>

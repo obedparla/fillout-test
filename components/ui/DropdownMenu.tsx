@@ -21,7 +21,7 @@ export default function DropdownMenu({
       </DropdownMenuPrimitive.Trigger>
       <DropdownMenuPrimitive.Portal>
         <DropdownMenuPrimitive.Content
-          className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-48 rounded-md border border-gray-200 bg-white p-1 shadow-lg"
+          className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 shadow-tab-active z-50 w-[220px] rounded-[8px] border-1 border-[#E1E1E1] bg-white text-[#1A1A1A]"
           side="top"
           sideOffset={15}
         >
@@ -43,17 +43,15 @@ export function DropdownMenuItem({
   onClick,
   variant = "default",
 }: DropdownMenuItemProps) {
-  const baseStyles =
-    "relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50";
   const variants = {
-    default: "text-gray-700 hover:bg-gray-100",
+    default: "text-gray-700 hover:bg-gray-100 focus:bg-gray-100",
     destructive:
-      "text-red-600 hover:bg-red-50 focus:bg-red-50 focus:text-red-600",
+      "text-[#EF494F] hover:bg-red-50 focus:bg-red-50 rounded-b-[8px]",
   };
 
   return (
     <DropdownMenuPrimitive.Item
-      className={`${baseStyles} ${variants[variant]}`}
+      className={`focus:bg-accent focus:text-accent-foreground flex cursor-pointer items-center px-3 py-[7px] text-sm font-medium transition-colors outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 ${variants[variant]}`}
       onClick={onClick}
     >
       {children}
