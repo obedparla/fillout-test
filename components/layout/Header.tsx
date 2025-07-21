@@ -105,15 +105,9 @@ export default function Header() {
                   aria-checked="true"
                   data-state="checked"
                   value="edit"
-                  className="relative flex h-full flex-1 cursor-pointer items-center justify-center border-none bg-transparent px-2.5 text-center font-sans text-sm font-[450] -tracking-[0.01rem] whitespace-nowrap text-gray-500 transition duration-150 ease-in-out select-none hover:text-gray-500 focus-visible:outline-none data-[state=checked]:text-gray-900 [&>svg]:mr-1 [&>svg]:h-4 [&>svg]:w-4"
+                  className="relative flex h-full flex-1 cursor-pointer items-center justify-center rounded-lg border-none bg-transparent bg-white px-2.5 text-center font-sans text-sm font-[450] -tracking-[0.01rem] whitespace-nowrap text-black text-gray-500 transition duration-150 ease-in-out select-none hover:text-gray-500 focus-visible:outline-none data-[state=checked]:text-gray-900 [&>svg]:mr-1 [&>svg]:h-4 [&>svg]:w-4"
                   tabIndex="-1"
                 >
-                  <span data-state="checked">
-                    <span
-                      className="absolute inset-0 -z-10 rounded-[10px] border border-[rgba(0,0,0,0.1)] bg-white shadow-sm transition-shadow duration-150 ease-in-out group-focus-visible:shadow-[0_0_0_2px_white,0_0_0_4px_rgb(156,163,175)] dark:bg-gray-700"
-                      style={{ opacity: 1 }}
-                    ></span>
-                  </span>
                   Edit
                 </div>
                 <div
