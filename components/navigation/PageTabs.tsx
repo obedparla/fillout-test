@@ -32,9 +32,7 @@ export default function PageTabs() {
     usePageStore();
   const router = useRouter();
   const [isDragging, setIsDragging] = useState(false);
-  const [newlyAddedPageId, setNewlyAddedPageSlug] = useState<string | null>(
-    null,
-  );
+  const [newlyAddedPageId, setNewlyAddedPageId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingInsertIndex, setPendingInsertIndex] = useState<
     number | undefined
@@ -92,24 +90,24 @@ export default function PageTabs() {
   };
 
   const handleModalSave = (title: string, pageType: PageType) => {
-    const slug = crypto.randomUUID();
+    const id = crypto.randomUUID();
 
     // Set the newly added page ID for animation
-    setNewlyAddedPageSlug(slug);
+    setNewlyAddedPageId(id);
 
     addPage(
       {
         title,
         type: pageType,
-        slug,
+        id,
       },
       pendingInsertIndex,
     );
 
-    router.push(`/page/${slug}`);
+    router.push(`/page/${id}`);
 
     // Clear the animation state after animation completes
-    setTimeout(() => setNewlyAddedPageSlug(null), 400);
+    setTimeout(() => setNewlyAddedPageId(null), 400);
 
     // Reset pending insert index
     setPendingInsertIndex(undefined);
@@ -162,10 +160,10 @@ export default function PageTabs() {
                   <React.Fragment key={page.id}>
                     <PageTab
                       page={page}
-                      isActive={activePage === page.slug}
+                      isActive={activePage === page.id}
                       onContextAction={handleContextAction}
-                      isNewlyAdded={newlyAddedPageId === page.slug}
-                      data-testid={`page-tab-${page.slug}`}
+                      isNewlyAdded={newlyAddedPageId === page.id}
+                      data-testid={`page-tab-${page.id}`}
                     />
 
                     {index < pages.length - 1 &&

@@ -1,10 +1,10 @@
 import PageContent from "@/components/layout/PageContent";
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ id: string }>;
 }
 
 export default async function Page({ params }: PageProps) {
-  const { slug } = await params;
-  return <PageContent slug={slug} />;
+  const { id } = await params;
+  return <PageContent id={id} />;
 }

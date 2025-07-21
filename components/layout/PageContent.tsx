@@ -4,12 +4,12 @@ import { usePageStore } from "@/store/pageStore";
 import { PageIcon } from "@/components/ui/PageIcon";
 
 interface PageContentProps {
-  slug: string;
+  id: string;
 }
 
-export default function PageContent({ slug }: PageContentProps) {
-  const { findPageBySlug, isLoading } = usePageStore();
-  const page = findPageBySlug(slug);
+export default function PageContent({ id }: PageContentProps) {
+  const { findPageById, isLoading } = usePageStore();
+  const page = findPageById(id);
 
   if (isLoading) {
     return (
@@ -27,7 +27,7 @@ export default function PageContent({ slug }: PageContentProps) {
       <div className="flex h-[100%] flex-1 items-center justify-center bg-[#ecfaf0] text-black">
         <div className="text-center">
           <h2 className="mb-4 text-2xl font-bold">Page Not Found</h2>
-          <p className="text-gray-400">The page "{slug}" does not exist.</p>
+          <p className="text-gray-400">The page "{id}" does not exist.</p>
         </div>
       </div>
     );

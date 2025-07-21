@@ -41,13 +41,13 @@ describe("PageTabs", () => {
       {
         id: "1",
         title: "Page 1",
-        slug: "page-1",
+        id: "page-1",
         type: PageType.INFO,
       },
       {
         id: "2",
         title: "Page 2",
-        slug: "page-2",
+        id: "page-2",
         type: PageType.DETAILS,
       },
     ],
@@ -110,7 +110,7 @@ describe("PageTabs", () => {
       expect.objectContaining({
         title: "New Test Page",
         type: PageType.INFO,
-        slug: expect.any(String),
+        id: expect.any(String),
       }),
       undefined,
     );
@@ -128,7 +128,7 @@ describe("PageTabs", () => {
     const mockAddPage = jest.fn().mockImplementation((pageData) => {
       const newPage = {
         id: "3",
-        slug: expect.any(String),
+        id: expect.any(String),
         ...pageData,
       };
       mockPageStore.pages.push(newPage);

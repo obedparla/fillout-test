@@ -2,27 +2,23 @@ import { FormPage, PageType } from "@/types";
 
 export const initialPages: FormPage[] = [
   {
-    id: "1",
+    id: "info",
     title: "Info",
     type: PageType.INFO,
-    slug: "info",
   },
   {
-    id: "2",
+    id: "details",
     title: "Details",
     type: PageType.DETAILS,
-    slug: "details",
   },
   {
-    id: "3",
+    id: "other",
     title: "Other",
     type: PageType.OTHER,
-    slug: "other",
   },
   {
-    id: "4",
+    id: "ending",
     title: "Ending",
     type: PageType.ENDING,
-    slug: "ending",
   },
 ];

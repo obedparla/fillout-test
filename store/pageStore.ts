@@ -9,10 +9,10 @@ interface PageStore {
   isLoading: boolean;
 
   // Actions
-  setActivePage: (slug: string) => void;
+  setActivePage: (id: string) => void;
   addPage: (page: Omit<FormPage, "id">, insertAtIndex?: number) => void;
   reorderPages: (pages: FormPage[]) => void;
-  findPageBySlug: (slug: string) => FormPage | undefined;
+  findPageById: (id: string) => FormPage | undefined;
 }
 
 export const usePageStore = create<PageStore>()(
@@ -22,8 +22,8 @@ export const usePageStore = create<PageStore>()(
       activePage: "",
       isLoading: true,
 
-      setActivePage: (slug: string) => {
-        set({ activePage: slug });
+      setActivePage: (id: string) => {
+        set({ activePage: id });
       },
 
       addPage: (pageData, insertAtIndex) => {
@@ -41,9 +41,9 @@ export const usePageStore = create<PageStore>()(
         ) {
           const newPages = [...pages];
           newPages.splice(insertAtIndex, 0, newPage);
-          set({ pages: newPages, activePage: newPage.slug });
+          set({ pages: newPages, activePage: newPage.id });
         } else {
-          set({ pages: [...pages, newPage], activePage: newPage.slug });
+          set({ pages: [...pages, newPage], activePage: newPage.id });
         }
       },
 
@@ -51,9 +51,9 @@ export const usePageStore = create<PageStore>()(
         set({ pages: reorderedPages });
       },
 
-      findPageBySlug: (slug: string) => {
+      findPageById: (id: string) => {
         const { pages } = get();
-        return pages.find((page) => page.slug === slug);
+        return pages.find((page) => page.id === id);
       },
     }),
     {
@@ -64,7 +64,7 @@ export const usePageStore = create<PageStore>()(
           // If no pages exist after rehydration, use initial pages
           if (!state.pages || state.pages.length === 0) {
             state.pages = initialPages;
-            state.activePage = initialPages[0]?.slug || "info";
+            state.activePage = initialPages[0]?.id || "info";
           }
           state.isLoading = false;
         }

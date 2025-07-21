@@ -32,7 +32,8 @@ npm run dev
 - Added `Prettier` and `Eslint` configs. Eslint config is very team-specific, so I added some simple defaults.
 - Added some basic tests using `Jest` and `react-testing-library`
 
-## Differences from the design
+## Design choices
 
 - The "+ Add page" button on the right of the tabs is outside of the scrollable area from the tabs.
   - From the Figma design it seemed like it was connected to the tabs, but if there are many forms, the button will be hidden all the right to the right, requiring to scroll.
+- In order to make the app look better, I copied the header, sidebar, and form info from fillout.com and pasted it in this project. 

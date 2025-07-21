@@ -2,7 +2,6 @@ export interface FormPage {
   id: string;
   title: string;
   type: PageType;
-  slug: string;
 }
 
 export enum PageType {

@@ -59,8 +59,8 @@ export default function PageTab({
   };
 
   const navigateToPage = () => {
-    router.push(`/page/${page.slug}`);
-    setActivePage(page.slug);
+    router.push(`/page/${page.id}`);
+    setActivePage(page.id);
   };
 
   const handleClick = (event: React.MouseEvent) => {
@@ -96,7 +96,7 @@ export default function PageTab({
       isActive={isActive}
       isDragging={isDragging}
       isNewlyAdded={isNewlyAdded}
-      data-page-id={page.slug}
+      data-page-id={page.id}
       onContextMenu={handleRightClick}
       {...attributes}
       {...listeners}
