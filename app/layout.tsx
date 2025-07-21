@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
-import PageNavigation from "@/components/navigation/PageNavigation";
+import PageTabs from "@/components/navigation/PageTabs";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,7 +20,11 @@ export const metadata: Metadata = {
   description: "A pixel-perfect form builder interface",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body
@@ -32,7 +36,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Sidebar />
             <main className="relative flex-1">
               {children}
-              <PageNavigation />
+
+              <div className="absolute right-0 bottom-0 left-0 z-10">
+                <PageTabs />
+              </div>
             </main>
           </div>
         </div>

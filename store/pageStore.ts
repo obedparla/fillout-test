@@ -10,13 +10,11 @@ interface PageStore {
 
   // Actions
   setActivePage: (slug: string) => void;
-  addPage: (page: Omit<FormPage, "id" | "position">) => void;
+  addPage: (page: Omit<FormPage, "id">, insertAtIndex?: number) => void;
   deletePage: (id: string) => void;
-  renamePage: (id: string, title: string) => void;
   duplicatePage: (id: string) => void;
   reorderPages: (pages: FormPage[]) => void;
   findPageBySlug: (slug: string) => FormPage | undefined;
-  getNextPosition: () => number;
 }
 
 export const usePageStore = create<PageStore>()(
@@ -30,15 +28,25 @@ export const usePageStore = create<PageStore>()(
         set({ activePage: slug });
       },
 
-      addPage: (pageData) => {
+      addPage: (pageData, insertAtIndex) => {
         const { pages } = get();
+
         const newPage: FormPage = {
-          ...pageData,
           id: crypto.randomUUID(),
-          position: pages.length,
+          ...pageData,
         };
 
-        set({ pages: [...pages, newPage] });
+        if (
+          insertAtIndex !== undefined &&
+          insertAtIndex >= 0 &&
+          insertAtIndex <= pages.length
+        ) {
+          const newPages = [...pages];
+          newPages.splice(insertAtIndex, 0, newPage);
+          set({ pages: newPages, activePage: newPage.slug });
+        } else {
+          set({ pages: [...pages, newPage], activePage: newPage.slug });
+        }
       },
 
       deletePage: (id: string) => {
@@ -61,14 +69,6 @@ export const usePageStore = create<PageStore>()(
         }
       },
 
-      renamePage: (id: string, title: string) => {
-        const { pages } = get();
-        const updatedPages = pages.map((page) =>
-          page.id === id ? { ...page, title } : page,
-        );
-        set({ pages: updatedPages });
-      },
-
       duplicatePage: (id: string) => {
         const { pages } = get();
         const original = pages.find((page) => page.id === id);
@@ -79,28 +79,18 @@ export const usePageStore = create<PageStore>()(
           id: Date.now().toString(),
           title: `${original.title} Copy`,
           slug: `${original.slug}-copy`,
-          position: pages.length,
         };
 
         set({ pages: [...pages, duplicate] });
       },
 
       reorderPages: (reorderedPages: FormPage[]) => {
-        const updatedPages = reorderedPages.map((page, index) => ({
-          ...page,
-          position: index,
-        }));
-        set({ pages: updatedPages });
+        set({ pages: reorderedPages });
       },
 
       findPageBySlug: (slug: string) => {
         const { pages } = get();
         return pages.find((page) => page.slug === slug);
-      },
-
-      getNextPosition: () => {
-        const { pages } = get();
-        return pages.length;
       },
     }),
     {

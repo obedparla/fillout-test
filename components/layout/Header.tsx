@@ -1,4 +1,5 @@
 // Copied directly from Fillout.com for UI purposes, ignoring any errors here
+/* eslint-disable */
 // @ts-nocheck
 
 export default function Header() {

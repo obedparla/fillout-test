@@ -1,6 +1,7 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import React from "react";
+import { useRouter } from "next/navigation";
 import { usePageStore } from "@/store/pageStore";
 import {
   DndContext,
@@ -17,16 +18,14 @@ import {
   horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import PageTab from "./PageTab";
-import { Tab } from "@/components/navigation/Tab";
+import Tab from "@/components/navigation/Tab";
 import PlusIcon from "@/components/icons/PlusIcon";
 import { PageType } from "@/types";
 
 export default function PageTabs() {
-  const pathname = usePathname();
-  const { pages, reorderPages, isLoading, addPage } = usePageStore();
-
-  const currentSlug = pathname.split("/").pop();
-  const sortedPages = [...pages].sort((a, b) => a.position - b.position);
+  const { pages, reorderPages, isLoading, addPage, activePage } =
+    usePageStore();
+  const router = useRouter();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -45,21 +44,28 @@ export default function PageTabs() {
     const { active, over } = event;
 
     if (active.id !== over?.id) {
-      const oldIndex = sortedPages.findIndex((page) => page.id === active.id);
-      const newIndex = sortedPages.findIndex((page) => page.id === over?.id);
+      const oldIndex = pages.findIndex((page) => page.id === active.id);
+      const newIndex = pages.findIndex((page) => page.id === over?.id);
 
-      const reorderedPages = arrayMove(sortedPages, oldIndex, newIndex);
+      const reorderedPages = arrayMove(pages, oldIndex, newIndex);
       reorderPages(reorderedPages);
     }
   };
 
-  const handleAddPage = () => {
+  const handleAddPage = (insertAtIndex?: number) => {
     const newPageNumber = pages.length + 1;
-    addPage({
-      title: `Page ${newPageNumber}`,
-      type: PageType.DETAILS,
-      slug: crypto.randomUUID(),
-    });
+    const slug = crypto.randomUUID();
+
+    addPage(
+      {
+        title: `Page ${newPageNumber}`,
+        type: PageType.DETAILS,
+        slug,
+      },
+      insertAtIndex,
+    );
+
+    router.push(`/page/${slug}`);
   };
 
   if (isLoading) {
@@ -84,25 +90,40 @@ export default function PageTabs() {
         modifiers={[restrictToHorizontalAxis]}
       >
         <SortableContext
-          items={sortedPages.map((p) => p.id)}
+          items={pages.map((p) => p.id)}
           strategy={horizontalListSortingStrategy}
         >
-          <div className="flex items-center gap-2">
-            {sortedPages.map((page) => (
-              <div key={page.id} className="flex items-center">
+          <div className="flex items-center">
+            {pages.map((page, index) => (
+              <React.Fragment key={page.id}>
                 <PageTab
                   page={page}
-                  isActive={currentSlug === page.slug}
+                  isActive={activePage === page.slug}
                   onContextAction={handleContextAction}
                 />
-              </div>
+
+                {index < pages.length - 1 && (
+                  <div className="group relative flex h-8 w-[20px] items-center justify-center transition-all duration-200 hover:w-[56px]">
+                    <div className="h-px w-[20px] border-t border-dashed border-[#C0C0C0] transition-all duration-200 group-hover:w-[56px]"></div>
+                    <button
+                      onClick={() => {
+                        handleAddPage(index + 1);
+                      }}
+                      className="shadow-tab-active absolute flex h-5 w-5 items-center justify-center rounded-full border-[0.5px] border-[#E1E1E1] bg-white text-black opacity-0 transition-all duration-200 group-hover:opacity-100 hover:opacity-100"
+                      title="Add page"
+                    >
+                      <PlusIcon size={12} />
+                    </button>
+                  </div>
+                )}
+              </React.Fragment>
             ))}
           </div>
         </SortableContext>
       </DndContext>
 
       <div className="ml-2">
-        <Tab onClick={handleAddPage} isActive title="Add page">
+        <Tab onClick={() => handleAddPage()} isActive title="Add page">
           <span className="flex h-5 w-5 items-center justify-center text-base">
             <PlusIcon />
           </span>

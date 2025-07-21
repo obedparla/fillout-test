@@ -3,7 +3,6 @@ export interface FormPage {
   title: string;
   type: PageType;
   slug: string;
-  position: number;
 }
 
 export enum PageType {

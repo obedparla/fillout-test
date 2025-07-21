@@ -1,23 +1,21 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { FormPage, PageType } from "@/types";
+import { FormPage } from "@/types";
 import DropdownMenu, { DropdownMenuItem } from "@/components/ui/DropdownMenu";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {
   DotsIcon,
-  InfoIcon,
-  DetailsIcon,
-  EndingIcon,
   PinIcon,
   EditIcon,
   CopyIcon,
   DuplicateIcon,
   DeleteIcon,
 } from "@/components/icons";
-import { Tab } from "@/components/navigation/Tab";
+import Tab from "@/components/navigation/Tab";
 import { PageIcon } from "@/components/ui/PageIcon";
+import { usePageStore } from "@/store/pageStore";
 
 interface PageTabProps {
   page: FormPage;
@@ -44,7 +42,7 @@ export default function PageTab({
   onContextAction,
 }: PageTabProps) {
   const router = useRouter();
-
+  const { setActivePage } = usePageStore();
   const {
     attributes,
     listeners,
@@ -63,6 +61,7 @@ export default function PageTab({
 
   const navigateToPage = () => {
     router.push(`/page/${page.slug}`);
+    setActivePage(page.slug);
   };
 
   const handleClick = (event: React.MouseEvent) => {

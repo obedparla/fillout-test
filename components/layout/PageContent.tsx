@@ -47,7 +47,6 @@ export default function PageContent({ slug }: PageContentProps) {
           <p className="mb-2 text-sm text-gray-300">Page Details:</p>
           <p className="text-sm">ID: {page.id}</p>
           <p className="text-sm">Slug: {page.slug}</p>
-          <p className="text-sm">Position: {page.position}</p>
         </div>
       </div>
     </div>
