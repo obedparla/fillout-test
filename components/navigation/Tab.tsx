@@ -4,12 +4,11 @@ import { clsx } from "clsx";
 interface TabProps extends React.HTMLAttributes<HTMLDivElement> {
   isActive?: boolean;
   isDragging?: boolean;
-  isNewlyAdded?: boolean;
   children: React.ReactNode;
 }
 
 const Tab = React.forwardRef<HTMLDivElement, TabProps>(
-  ({ isActive, isDragging, isNewlyAdded = false, children, ...rest }, ref) => {
+  ({ isActive, isDragging = false, children, ...rest }, ref) => {
     return (
       <div
         ref={ref}
@@ -22,7 +21,6 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
             "border-[transparent] bg-[#9DA4B226] text-[#677289] hover:bg-[#9DA4B259]":
               !isActive,
             "z-10 opacity-60": isDragging,
-            "animate-slide-in": isNewlyAdded,
           },
         )}
         {...rest}

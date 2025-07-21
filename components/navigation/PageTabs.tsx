@@ -161,7 +161,6 @@ export default function PageTabs() {
                       page={page}
                       isActive={activePage === page.id}
                       onContextAction={handleContextAction}
-                      isNewlyAdded={newlyAddedPageId === page.id}
                       data-testid={`page-tab-${page.id}`}
                     />
 
